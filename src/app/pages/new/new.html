@@ -1,0 +1,36 @@
+<h2>Añadir Nueva Serie</h2>
+
+<form class="form-container" [formGroup]="form" (ngSubmit)="onSubmit()">
+  
+  <div class="form-group">
+    <label>Título de la serie:</label>
+    <input type="text" formControlName="title" placeholder="Ej: Breaking Bad">
+    
+    @if (f.title.invalid && f.title.touched) {
+      @if (f.title.errors?.['required']) { <small class="error">El título es obligatorio.</small> }
+      @if (f.title.errors?.['minlength']) { <small class="error">Debe tener al menos 3 caracteres.</small> }
+    }
+  </div>
+
+  <div class="form-group">
+    <label>Canal / Plataforma:</label>
+    <input type="text" formControlName="channel" placeholder="Ej: AMC">
+    
+    @if (f.channel.invalid && f.channel.touched) {
+      <small class="error">El canal es obligatorio.</small>
+    }
+  </div>
+
+  <div class="form-group">
+    <label>Rating (0-10):</label>
+    <input type="number" formControlName="rating" placeholder="Ej: 9.5">
+    
+    @if (f.rating.invalid && f.rating.touched) {
+      @if (f.rating.errors?.['required']) { <small class="error">El rating es obligatorio.</small> }
+      @if (f.rating.errors?.['min'] || f.rating.errors?.['max']) { <small class="error">El valor debe estar entre 0 y 10.</small> }
+    }
+  </div>
+
+  <button type="submit" [disabled]="form.invalid">Crear Serie</button>
+
+</form>
